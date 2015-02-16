@@ -69,7 +69,7 @@ func (ds *EndpointsStoreService) ListEndpoints() ([]Endpoint,error) {
 }
 
 func (ds *EndpointsStoreService) PushEventToListeners(event EndpointEvent) {
-	glog.V(3).Infof("Pushing the event: %s to all listeners", event)
+	glog.V(5).Infof("Pushing the event: %s to all listeners", event)
 
 	/* create the event for us and wrap the service */
 	event.Service = ds.Service
@@ -96,6 +96,7 @@ func (ds *EndpointsStoreService) Synchronize() error {
 		glog.Errorf("Attempt to resynchronize the endpoints failed for service: %s, error: %s", ds.Service, err)
 		return errors.New("Failed to resync the endpoints")
 	}
+	glog.V(3).Infof("Service: %s, endpoints: %s", ds.Service, endpoints)
 	/* step: we register any new endpoints - using the endpoint id as key into the map */
 	atomic.StorePointer(&ds.Endpoints,unsafe.Pointer(&endpoints))
 	return nil
