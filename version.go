@@ -16,4 +16,4 @@ limitations under the License.
 
 package main
 
-const Version = "0.0.8"
+const Version = "0.0.9"
